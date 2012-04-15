@@ -14,9 +14,7 @@
 
   (taxi/get-url "https://my.rcn.com/billing/bills")
 
-  (def download-links (filter #(= "Download" (.getText (:webelement %))) (taxi/elements "a")))
-
-  (doseq [link download-links]
+  (doseq [link (filter #(= "Download" (.getText (:webelement %))) (taxi/elements "a"))]
     (taxi/click link))
 
   (shell/sh "mkdir" "-p" "statements/RCN")
