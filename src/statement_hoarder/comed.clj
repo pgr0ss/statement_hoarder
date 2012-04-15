@@ -2,7 +2,6 @@
   (require [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]
            [clojure.java.shell :as shell]
-           [clojure.java.io :as io]
            [clojure.string :as string]))
 
 (defn download [username password]
