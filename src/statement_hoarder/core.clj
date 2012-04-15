@@ -1,0 +1,1 @@
+(ns statement-hoarder.core)
