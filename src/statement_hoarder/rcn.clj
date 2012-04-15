@@ -2,11 +2,11 @@
   (require [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]))
 
-(defn download []
+(defn download [username password]
   (taxi/get-url "https://my.rcn.com")
 
-  (taxi/input-text "#username" "username")
-  (taxi/input-text "#password" "password")
+  (taxi/input-text "#username" username)
+  (taxi/input-text "#password" password)
 
   (taxi/submit "#password")
 
