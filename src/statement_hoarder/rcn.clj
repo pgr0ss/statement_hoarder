@@ -2,7 +2,8 @@
   (require [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]
            [clojure.java.shell :as shell]
-           [clojure.java.io :as io]))
+           [clojure.java.io :as io]
+           [statement-hoarder.finders :as finders]))
 
 (defn download [username password]
   (taxi/get-url "https://my.rcn.com")
@@ -14,7 +15,7 @@
 
   (taxi/get-url "https://my.rcn.com/billing/bills")
 
-  (doseq [link (filter #(= "Download" (.getText (:webelement %))) (taxi/elements "a"))]
+  (doseq [link (finders/find-links-by-text "Download")]
     (taxi/click link))
 
   (shell/sh "mkdir" "-p" "statements/RCN")

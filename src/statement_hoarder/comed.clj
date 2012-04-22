@@ -1,9 +1,9 @@
 (ns statement-hoarder.comed
-  (require [clj-webdriver.firefox :as firefox]
-           [clj-webdriver.taxi :as taxi]
+  (require [clj-webdriver.taxi :as taxi]
            [clojure.java.io :as io]
            [clojure.java.shell :as shell]
-           [clojure.string :as string]))
+           [clojure.string :as string]
+           [statement-hoarder.download :as download]))
 
 (def TABLE-SELECTOR "div#ctl00_SPWebPartManager1_g_d4ac20d8_bb7c_4b89_a496_19eed73e874f table")
 
@@ -33,8 +33,7 @@
             row (nth (taxi/elements table "tr") row-num)
             columns (taxi/elements row "td")
             bill-date (-> columns first :webelement .getText)
-            [bill-month bill-day bill-year] (string/split bill-date #"/")
-            formatted-bill-date (string/join "-" [bill-year bill-month bill-day])
+            formatted-bill-date (download/convert-date bill-date)
             link (taxi/element (last columns) "a")]
         (taxi/click link)
         (taxi/wait-until #(taxi/exists? TABLE-SELECTOR))
