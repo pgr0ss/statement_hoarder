@@ -9,8 +9,6 @@
 (def TABLE-SELECTOR "table#claims")
 
 (defn download [username password]
-  (shell/sh "mkdir" "-p" "statements/BlueCross")
-
   (taxi/get-url "https://www.bcbsil.com")
 
   (taxi/click (taxi/element "#loginBtn"))

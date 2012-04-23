@@ -7,16 +7,7 @@
 
 (def TABLE-SELECTOR "div#ctl00_SPWebPartManager1_g_d4ac20d8_bb7c_4b89_a496_19eed73e874f table")
 
-(defn- exists? [filename]
-  (.exists (io/file filename)))
-
-(defn- mv [from to]
-  (when (exists? from)
-    (.renameTo (io/file from) (io/file to))))
-
 (defn download [username password]
-  (shell/sh "mkdir" "-p" "statements/ComEd")
-
   (taxi/get-url "https://www.comed.com")
 
   (taxi/input-text "#ctl00_login_txtUserName" username)
@@ -33,9 +24,6 @@
             row (nth (taxi/elements table "tr") row-num)
             columns (taxi/elements row "td")
             bill-date (-> columns first :webelement .getText)
-            formatted-bill-date (download/convert-date bill-date)
+            final-filename (str (download/convert-date bill-date) ".pdf")
             link (taxi/element (last columns) "a")]
-        (taxi/click link)
-        (taxi/wait-until #(taxi/exists? TABLE-SELECTOR))
-        (taxi/wait-until #(exists? "/tmp/download/default.aspx"))
-        (mv "/tmp/download/default.aspx" (str "statements/ComEd/" formatted-bill-date ".pdf"))))))
+        (download/download link "default.aspx" final-filename "ComEd")))))

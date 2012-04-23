@@ -19,7 +19,9 @@
 (defn download [link original-filename final-filename folder]
   (let [download-path (str "/tmp/download/" original-filename)
         final-path (str "statements/" folder "/" final-filename)]
+    (.mkdir (io/file "/tmp/download"))
+    (.mkdir (io/file "statements"))
+    (.mkdir (io/file (str "statements/" folder)))
     (taxi/click link)
-    (taxi/wait-until #(exists? download-path))
-    (println download-path final-path)
+    (taxi/wait-until #(exists? download-path) 60000 500)
     (mv download-path final-path)))
