@@ -1,0 +1,7 @@
+sites:
+  blue-cross:
+    username: me@example.com
+  comed:
+    username: myuser
+  rcn:
+    username: myuser

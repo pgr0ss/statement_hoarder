@@ -5,7 +5,7 @@ This is a very early stage project to automate downloading PDF statements from m
 ## Usage
 
 ```bash
-lein trampoline run
+lein trampoline run config.yml
 ```
 
 ## License

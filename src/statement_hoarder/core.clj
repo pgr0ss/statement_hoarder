@@ -1,5 +1,6 @@
 (ns statement-hoarder.core
-  (require [clj-webdriver.firefox :as firefox]
+  (require [clj-yaml.core :as yaml]
+           [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]
            [statement-hoarder.blue-cross :as blue-cross]
            [statement-hoarder.comed :as comed]
@@ -10,15 +11,28 @@
         value (.readPassword console message (to-array ""))]
     (String. value)))
 
+(defn- usage []
+  (println "Usage: lein trampoline run <config.yml>")
+  (System/exit 1))
+
+(defn- config [config-file]
+  (yaml/parse-string (slurp config-file)))
+
+(defn- site-function [site]
+  (case site
+    :blue-cross blue-cross/download
+    :comed comed/download
+    :rcn rcn/download))
+
 (defn -main [& args]
-  (let [blue-cross-user (prompt "Blue Cross User: ")
-        blue-cross-password (prompt "Blue Cross Password: ")
-        comed-user (prompt "ComEd User: ")
-        comed-password (prompt "ComEd Password: ")
-        rcn-user (prompt "RCN User: ")
-        rcn-password (prompt "RCN Password: ")]
-    (taxi/set-driver! {:browser :firefox :profile (firefox/new-profile "firefox_profile")})
-    (blue-cross/download blue-cross-user blue-cross-password)
-    (comed/download comed-user comed-password)
-    (rcn/download rcn-user rcn-password)
-    (taxi/quit)))
+  (if-not (= 1 (count args))
+    (usage)
+    (let [config (config (first args))]
+      (taxi/set-driver! {:browser :firefox :profile (firefox/new-profile "firefox_profile")})
+      (doseq [[site {:keys [username]}] (:sites config)]
+        (println "Downloading statements for" (name site))
+        (let [site-function (site-function site)
+              password (prompt (str "  Username: " username "\n  Password: "))]
+          (apply site-function [username password])))
+      (taxi/quit)
+      )))
