@@ -5,27 +5,10 @@ Version:0.15:$
 Arch:x86_64-gcc3:$
 
 [PLUGINS]
-Flash Player.plugin:$
-/Library/Internet Plug-Ins/Flash Player.plugin:$
-11.2.202.228:$
-1333075118000:0:1:$
-Shockwave Flash 11.2 r202:$
-Shockwave Flash:$
-2
-0:application/x-shockwave-flash:Shockwave Flash:swf:$
-1:application/futuresplash:FutureSplash Player:spl:$
-Picasa.plugin:$
-/Users/paul/Library/Internet Plug-Ins/Picasa.plugin:$
-1.0:$
-1331345932000:0:1:$
-Picasa plugin.:$
-Picasa:$
-1
-0:application/x-picasa-detect:3.1:picasa:$
 QuickTime Plugin.plugin:$
 /Library/Internet Plug-Ins/QuickTime Plugin.plugin:$
 7.7.1:$
-1308549020000:0:1:$
+1336884417000:0:1:$
 The QuickTime Plugin allows you to view a wide variety of multimedia content in web pages. For more information, visit the <A HREF=http://www.apple.com/quicktime>QuickTime</A> Web site.:$
 QuickTime Plug-in 7.7.1:$
 59
@@ -88,10 +71,19 @@ QuickTime Plug-in 7.7.1:$
 56:image/jpeg2000-image:JPEG2000 image:jp2:$
 57:audio/wav:WAVE audio:wav,bwf:$
 58:audio/vnd.qcelp:QUALCOMM PureVoice audio:qcp,qcp:$
+Flash Player.plugin:$
+/Library/Internet Plug-Ins/Flash Player.plugin:$
+11.2.202.235:$
+1336273086000:0:1:$
+Shockwave Flash 11.2 r202:$
+Shockwave Flash:$
+2
+0:application/x-shockwave-flash:Shockwave Flash:swf:$
+1:application/futuresplash:FutureSplash Player:spl:$
 JavaAppletPlugin.plugin:$
 /System/Library/Java/Support/CoreDeploy.bundle/Contents/JavaAppletPlugin.plugin:$
-14.2.0:$
-1308272440000:0:1:$
+14.2.2:$
+1334792057000:0:1:$
 Displays Java applet content, or a placeholder if Java is not installed.:$
 Java Applet Plug-in:$
 17
@@ -112,11 +104,19 @@ Java Applet Plug-in:$
 14:application/x-java-applet;version=1.1.1:Java applet::$
 15:application/x-java-applet;version=1.2:Java applet::$
 16:application/x-java-vm-npruntime:::$
+Picasa.plugin:$
+/Users/paul/Library/Internet Plug-Ins/Picasa.plugin:$
+1.0:$
+1331345932000:0:5:$
+Picasa plugin.:$
+Picasa:$
+1
+0:application/x-picasa-detect:3.1:picasa:$
 
 [INVALID]
 /Library/Internet Plug-Ins/Quartz Composer.webplugin:$
-1308270108000:$
+1331695967000:$
+/Library/Internet Plug-Ins/flashplayer.xpt:$
+1335554029000:$
 /Library/Internet Plug-Ins/nsIQTScriptablePlugin.xpt:$
 1331695966000:$
-/Library/Internet Plug-Ins/flashplayer.xpt:$
-1331851818000:$
