@@ -1,4 +1,4 @@
-(ns statement-hoarder.comed
+(ns statement-hoarder.sites.comed
   (require [clj-webdriver.taxi :as taxi]
            [clojure.java.io :as io]
            [clojure.java.shell :as shell]

@@ -2,9 +2,9 @@
   (require [clj-yaml.core :as yaml]
            [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]
-           [statement-hoarder.blue-cross :as blue-cross]
-           [statement-hoarder.comed :as comed]
-           [statement-hoarder.rcn :as rcn]))
+           [statement-hoarder.sites.blue-cross :as blue-cross]
+           [statement-hoarder.sites.comed :as comed]
+           [statement-hoarder.sites.rcn :as rcn]))
 
 (defn prompt [message]
   (let [console (System/console)
@@ -33,6 +33,7 @@
         (println "Downloading statements for" (name site))
         (let [site-function (site-function site)
               password (prompt (str "  Username: " username "\n  Password: "))]
-          (apply site-function [username password])))
-      (taxi/quit)
-      )))
+          (try
+            (site-function username password)
+            (catch Exception e (println "Caught exception: " (.getMessage e))))))
+      (taxi/quit))))

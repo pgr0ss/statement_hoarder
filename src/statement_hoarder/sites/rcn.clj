@@ -1,4 +1,4 @@
-(ns statement-hoarder.rcn
+(ns statement-hoarder.sites.rcn
   (require [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]
            [clojure.java.shell :as shell]

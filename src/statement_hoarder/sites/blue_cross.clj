@@ -1,4 +1,4 @@
-(ns statement-hoarder.blue-cross
+(ns statement-hoarder.sites.blue-cross
   (require [clj-webdriver.taxi :as taxi]
            [clojure.java.io :as io]
            [clojure.java.shell :as shell]
