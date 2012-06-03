@@ -2,6 +2,7 @@
   (require [clj-yaml.core :as yaml]
            [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]
+           [statement-hoarder.download :as download]
            [statement-hoarder.sites.blue-cross :as blue-cross]
            [statement-hoarder.sites.comed :as comed]
            [statement-hoarder.sites.rcn :as rcn]))
@@ -43,11 +44,13 @@
   (if-not (= 1 (count args))
     (usage)
     (let [config (config (first args))
+          statement-path (:statement-path config)
           sites (site-configs config)]
+      (download/clear-tmp)
       (taxi/set-driver! {:browser :firefox :profile (firefox/new-profile "firefox_profile")})
       (doseq [{:keys [site-name username password]} sites]
         (try
           (println "Downloading statements for" (name site-name))
-          ((site-function site-name) username password)
-          (catch Exception e (println "Caught exception: " (.getMessage e)))))
+          ((site-function site-name) statement-path username password)
+          (catch Exception e (println "Caught exception: " e))))
       (taxi/quit))))

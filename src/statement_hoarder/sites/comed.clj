@@ -7,7 +7,7 @@
 
 (def TABLE-SELECTOR "div#ctl00_SPWebPartManager1_g_d4ac20d8_bb7c_4b89_a496_19eed73e874f table")
 
-(defn download [username password]
+(defn download [statement-path username password]
   (taxi/get-url "https://www.comed.com")
 
   (taxi/input-text "#ctl00_login_txtUserName" username)
@@ -26,4 +26,4 @@
             bill-date (-> columns first :webelement .getText)
             final-filename (str (download/convert-date bill-date) ".pdf")
             link (taxi/element (last columns) "a")]
-        (download/download link "default.aspx" final-filename "ComEd")))))
+        (download/download statement-path link "default.aspx" final-filename "ComEd")))))

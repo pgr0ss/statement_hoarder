@@ -1,3 +1,4 @@
+statement-path: /path/to/where/you/want/statements
 sites:
   blue-cross:
     username: me@example.com

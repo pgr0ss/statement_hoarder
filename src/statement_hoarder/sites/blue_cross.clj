@@ -8,7 +8,7 @@
 
 (def TABLE-SELECTOR "table#claims")
 
-(defn download [username password]
+(defn download [statement-path username password]
   (taxi/get-url "https://www.bcbsil.com")
 
   (taxi/click (taxi/element "#loginBtn"))
@@ -32,5 +32,5 @@
             formatted-provider (string/replace provider " " "_")
             final-filename (str formatted-visit-date "_" formatted-provider ".pdf")
             link (taxi/element (last columns) "a")]
-        (download/download link "eob1.pdf" final-filename "BlueCross")
+        (download/download statement-path link "eob1.pdf" final-filename "BlueCross")
         (taxi/back)))))
