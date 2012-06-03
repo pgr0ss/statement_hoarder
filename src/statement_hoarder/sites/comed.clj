@@ -1,8 +1,6 @@
 (ns statement-hoarder.sites.comed
   (require [clj-webdriver.taxi :as taxi]
-           [clojure.java.io :as io]
            [clojure.java.shell :as shell]
-           [clojure.string :as string]
            [statement-hoarder.download :as download]))
 
 (def TABLE-SELECTOR "div#ctl00_SPWebPartManager1_g_d4ac20d8_bb7c_4b89_a496_19eed73e874f table")
