@@ -3,6 +3,7 @@
            [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]
            [statement-hoarder.download :as download]
+           [statement-hoarder.sites.american-express :as american-express]
            [statement-hoarder.sites.blue-cross :as blue-cross]
            [statement-hoarder.sites.comed :as comed]
            [statement-hoarder.sites.rcn :as rcn]))
@@ -26,6 +27,7 @@
 
 (defn- site-function [site]
   (case site
+    :american-express american-express/download
     :blue-cross blue-cross/download
     :comed comed/download
     :rcn rcn/download))
