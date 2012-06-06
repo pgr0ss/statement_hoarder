@@ -16,6 +16,7 @@ Copy `config.yml.example` to `config.yml`. Edit this file and set the `statement
 Now run:
 
 ```bash
+lein deps
 lein trampoline run config.yml
 ```
 

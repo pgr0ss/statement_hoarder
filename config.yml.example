@@ -1,5 +1,7 @@
 statement-path: /path/to/where/you/want/statements
 sites:
+  american-express:
+    username: myuser
   blue-cross:
     username: me@example.com
   comed:
