@@ -31,5 +31,5 @@
             formatted-provider (string/replace provider " " "_")
             final-filename (str formatted-visit-date "_" formatted-provider ".pdf")
             link (taxi/element (last columns) "a")]
-        (download/download statement-path link "eob1.pdf" final-filename "BlueCross")
+        (download/download statement-path link "eob1.pdf" final-filename "Blue Cross")
         (taxi/back)))))
