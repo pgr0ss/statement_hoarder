@@ -6,6 +6,7 @@
            [statement-hoarder.sites.american-express :as american-express]
            [statement-hoarder.sites.blue-cross :as blue-cross]
            [statement-hoarder.sites.comed :as comed]
+           [statement-hoarder.sites.paycor :as paycor]
            [statement-hoarder.sites.rcn :as rcn]))
 
 (defn- prompt [message]
@@ -30,6 +31,7 @@
     :american-express american-express/download
     :blue-cross blue-cross/download
     :comed comed/download
+    :paycor paycor/download
     :rcn rcn/download))
 
 (defn- site-config [site]
