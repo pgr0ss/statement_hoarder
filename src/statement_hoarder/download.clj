@@ -29,9 +29,12 @@
     (.mkdir (io/file statement-path))
     (.mkdir (io/file (str statement-path "/" folder)))
     (if (exists? final-path)
-      (println "  skipping" final-filename "since it already exists")
+      (do
+        (println "  skipping" final-filename "since it already exists")
+        false)
       (do
         (println "  downloading" final-filename)
         (taxi/click link)
         (taxi/wait-until #(exists? download-path) 60000 500)
-        (mv download-path final-path)))))
+        (mv download-path final-path)
+        true))))
