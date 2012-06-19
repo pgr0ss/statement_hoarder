@@ -8,15 +8,12 @@
 (def TABLE-SELECTOR "table#claims")
 
 (defn download [statement-path username password]
-  (taxi/get-url "https://www.bcbsil.com")
+  (taxi/get-url "https://members.hcsc.net/wps/portal/bam")
 
-  (taxi/click (taxi/element "#loginBtn"))
-  (taxi/wait-until #(taxi/exists? "div.logOpen"))
+  (taxi/input-text "input[name=userName]" username)
+  (taxi/input-text "input[name=password]" password)
 
-  (taxi/input-text "#userId" username)
-  (taxi/input-text "#pswd" password)
-
-  (taxi/click (taxi/element "input[src=\"/images/login_button.jpg\"]"))
+  (taxi/click (taxi/element "input[src=\"/wps/PA_BAMLogin/images/login.jpg\"]"))
 
   (taxi/click (first (finders/find-links-by-text "Visits & Claims")))
 
@@ -29,7 +26,10 @@
             formatted-visit-date (download/convert-date visit-date)
             provider (-> (nth columns 2) :webelement .getText)
             formatted-provider (string/replace provider " " "_")
-            final-filename (str formatted-visit-date "_" formatted-provider ".pdf")
+            total-charges (-> (nth columns 4) :webelement .getText)
+            formatted-total-charges (string/replace (string/replace total-charges "$" "") "." "_")
+            final-filename (str formatted-visit-date "_" formatted-provider "_" formatted-total-charges ".pdf")
             link (taxi/element (last columns) "a")]
-        (download/download statement-path link "eob1.pdf" final-filename "Blue Cross")
-        (taxi/back)))))
+        (if (and (:webelement link)
+                 (download/download statement-path link "eob1.pdf" final-filename "Blue Cross"))
+          (taxi/back))))))
