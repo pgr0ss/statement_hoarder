@@ -10,10 +10,14 @@
 (defn download [statement-path username password]
   (taxi/get-url "https://members.hcsc.net/wps/portal/bam")
 
+  (let [illinois-link (first (finders/find-links-by-text "BCBS Illinois"))]
+    (if (:webelement illinois-link)
+      (taxi/click illinois-link)))
+
   (taxi/input-text "input[name=userName]" username)
   (taxi/input-text "input[name=password]" password)
 
-  (taxi/click (taxi/element "input[src=\"/wps/PA_BAMLogin/images/login.jpg\"]"))
+  (taxi/click (taxi/element "input[alt=\"Login\"]"))
 
   (taxi/click (first (finders/find-links-by-text "Visits & Claims")))
 
