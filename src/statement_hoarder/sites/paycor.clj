@@ -26,7 +26,7 @@
 
   (taxi/click (taxi/element "#ctl00_ctl00_placeHolderMain_paMain_btnLoginAjax"))
 
-  (wait-until-exists "#ctl00_ctl00_placeHolderMain_contentPHMain_DisplayEEMain1_roiChecks")
+  (Thread/sleep 5000)
 
   (taxi/click (taxi/element "#ctl00_ctl00_placeHolderMain_contentPHMain_DisplayEEMain1_roiChecks"))
 
