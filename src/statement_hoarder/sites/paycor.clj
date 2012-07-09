@@ -11,15 +11,12 @@
 (defn- paycor-statement-path [statement-path]
   (str statement-path "/Paycor"))
 
-(defn- wait-until-exists [selector]
-  (taxi/wait-until (taxi/exists? selector) 60000 500))
-
 (defn download [statement-path username password]
   (taxi/get-url "http://www.paycor.com")
 
   (taxi/click (taxi/element "#sign_in_button"))
 
-  (wait-until-exists "#ctl00_ctl00_placeHolderMain_paMain_txtLoginName")
+  (finders/wait-until-exists "#ctl00_ctl00_placeHolderMain_paMain_txtLoginName")
 
   (taxi/input-text "#ctl00_ctl00_placeHolderMain_paMain_txtLoginName" username)
   (taxi/input-text "#ctl00_ctl00_placeHolderMain_paMain_txtPassword" password)

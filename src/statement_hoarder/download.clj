@@ -23,6 +23,12 @@
   (when (exists? from)
     (.renameTo (io/file from) (io/file to))))
 
+(defn downloads-completed? []
+  (let [all-downloads (.listFiles (io/file TMP-PATH))
+        all-download-names (map str all-downloads)
+        partial-downloads (filter (partial re-find #".part$") all-download-names)]
+    (zero? (count partial-downloads))))
+
 (defn download [statement-path link original-filename final-filename folder]
   (let [download-path (str TMP-PATH original-filename)
         final-path (str statement-path "/" folder "/" final-filename)]

@@ -5,6 +5,7 @@
            [clojure.string :as string]
            [statement-hoarder.download :as download]
            [statement-hoarder.sites.american-express :as american-express]
+           [statement-hoarder.sites.att :as att]
            [statement-hoarder.sites.blue-cross :as blue-cross]
            [statement-hoarder.sites.comed :as comed]
            [statement-hoarder.sites.paycor :as paycor]
@@ -30,6 +31,7 @@
 (defn- site-function [site]
   (case site
     :american-express american-express/download
+    :att att/download
     :blue-cross blue-cross/download
     :comed comed/download
     :paycor paycor/download
@@ -57,5 +59,10 @@
           (println "Downloading statements for" (name site-name))
           (download/clear-tmp)
           ((site-function site-name) statement-path (str username) password)
-          (catch Exception e (println "Caught exception: " (.getMessage e) "\n" (string/join "\n" (.getStackTrace e))))))
+          (catch Exception e
+            (println "Caught exception: "
+                     (.getMessage e)
+                     "\n"
+                     (string/join "\n" (.getStackTrace e)))
+            (taxi/take-screenshot :file "/tmp/crash_screenshot.png"))))
       (taxi/quit))))

@@ -9,12 +9,6 @@
 (defn- rcn-statement-path [statement-path]
   (str statement-path "/RCN"))
 
-(defn- downloads-completed? []
-  (let [all-downloads (.listFiles (io/file download/TMP-PATH))
-        all-download-names (map str all-downloads)
-        partial-downloads (filter (partial re-find #".part$") all-download-names)]
-    (zero? (count partial-downloads))))
-
 (defn download [statement-path username password]
   (taxi/get-url "https://my.rcn.com")
 
@@ -28,7 +22,7 @@
   (doseq [link (finders/find-links-by-text "Download")]
     (taxi/click link))
 
-  (taxi/wait-until downloads-completed? 60000 500)
+  (taxi/wait-until download/downloads-completed? 60000 500)
 
   (shell/sh "mkdir" "-p" (rcn-statement-path statement-path))
 

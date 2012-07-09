@@ -7,3 +7,6 @@
 
 (defn find-link-by-text [text]
   (first (find-links-by-text text)))
+
+(defn wait-until-exists [selector]
+  (taxi/wait-until (taxi/exists? selector) 60000 500))
