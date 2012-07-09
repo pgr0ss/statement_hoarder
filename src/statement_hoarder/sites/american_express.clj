@@ -14,7 +14,7 @@
 
   (taxi/click (taxi/element "#loginImage"))
 
-  (taxi/click (first (finders/find-links-by-text "Statements & Activity")))
+  (taxi/click (finders/find-link-by-text "Statements & Activity"))
 
   (taxi/click (taxi/element "#LinkBilling"))
 

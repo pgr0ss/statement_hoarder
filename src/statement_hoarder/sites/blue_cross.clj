@@ -10,7 +10,7 @@
 (defn download [statement-path username password]
   (taxi/get-url "https://members.hcsc.net/wps/portal/bam")
 
-  (let [illinois-link (first (finders/find-links-by-text "BCBS Illinois"))]
+  (let [illinois-link (finders/find-link-by-text "BCBS Illinois")]
     (if (:webelement illinois-link)
       (taxi/click illinois-link)))
 
@@ -19,7 +19,7 @@
 
   (taxi/click (taxi/element "input[alt=\"Login\"]"))
 
-  (taxi/click (first (finders/find-links-by-text "Visits & Claims")))
+  (taxi/click (finders/find-link-by-text "Visits & Claims"))
 
   (let [number-of-rows (count (taxi/elements (taxi/element TABLE-SELECTOR) "tr"))]
     (doseq [row-num (range 1 number-of-rows)]
