@@ -11,13 +11,17 @@
 (defn- url [element]
   (.getAttribute (:webelement element) "href"))
 
-(defn- download-pdf []
-  (let [element (finders/find-link-by-text "My paper bill (PDF)")]
+(defn- move-files-to-statement-path [statement-path]
+  (doseq [file (file-seq (io/file "/tmp/download"))]
+    (when (.isFile file)
+      (shell/sh "mv" (.getPath file) (att-statement-path statement-path)))))
+
+(defn- download-pdf [statement-path]
+  (let [element (finders/find-link-by-text "Paper bill (PDF)")]
     (if (:webelement element)
-      (taxi/click element)
-      (do
-        (taxi/click (finders/find-link-by-text "My Paper Bill"))
-        (taxi/click (finders/find-link-by-text "Download PDF"))))))
+      (taxi/click element)))
+  (taxi/wait-until download/downloads-completed? 60000 500)
+  (move-files-to-statement-path statement-path))
 
 (defn download [statement-path username password]
   (taxi/get-url "http://www.att.com")
@@ -31,15 +35,10 @@
   (taxi/click (finders/find-link-by-text "Bill & Payments"))
   (taxi/click (finders/find-link-by-text "Billing history"))
 
+  (shell/sh "mkdir" "-p" (att-statement-path statement-path))
+
   (let [statement-elements (taxi/elements "a[title=\"View\"]")]
     (doseq [url (doall (map url statement-elements))]
       (taxi/get-url url)
-      (download-pdf)))
+      (download-pdf statement-path))))
 
-  (taxi/wait-until download/downloads-completed? 60000 500)
-
-  (shell/sh "mkdir" "-p" (att-statement-path statement-path))
-
-  (doseq [file (file-seq (io/file "/tmp/download"))]
-    (when (.isFile file)
-      (shell/sh "mv" (.getPath file) (att-statement-path statement-path)))))
