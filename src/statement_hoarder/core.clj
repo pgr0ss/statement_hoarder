@@ -1,7 +1,7 @@
 (ns statement-hoarder.core
   (require [clj-yaml.core :as yaml]
-           [clj-webdriver.firefox :as firefox]
            [clj-webdriver.taxi :as taxi]
+           [clj-webdriver.firefox :as firefox]
            [clojure.string :as string]
            [statement-hoarder.download :as download]
            [statement-hoarder.sites.american-express :as american-express]
