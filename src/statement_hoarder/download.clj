@@ -21,7 +21,7 @@
 
 (defn- mv [from to]
   (when (exists? from)
-    (.renameTo (io/file from) (io/file to))))
+    (shell/sh "mv" from to)))
 
 (defn downloads-completed? []
   (let [all-downloads (.listFiles (io/file TMP-PATH))

@@ -5,7 +5,15 @@
            [statement-hoarder.download :as download]
            [statement-hoarder.finders :as finders]))
 
-(def TABLE-SELECTOR "table#claims")
+(def TABLE-SELECTOR "table#claim")
+
+(defn- title-or-text [column]
+  (let [webelement (:webelement column)
+        title (.getAttribute webelement "title")
+        text (.getText webelement)]
+    (if-not (string/blank? title)
+      title
+      text)))
 
 (defn download [statement-path username password]
   (taxi/get-url "https://members.hcsc.net/wps/portal/bam")
@@ -17,23 +25,24 @@
   (taxi/input-text "input[name=userName]" username)
   (taxi/input-text "input[name=password]" password)
 
-  (taxi/click (taxi/element "input[alt=\"Login\"]"))
+  (taxi/click (taxi/element "input[type=submit]"))
 
-  (taxi/click (finders/find-link-by-text "Visits & Claims"))
+  (taxi/click (finders/find-link-by-text "Claims Center"))
 
   (let [number-of-rows (count (taxi/elements (taxi/element TABLE-SELECTOR) "tr"))]
-    (doseq [row-num (range 1 number-of-rows)]
+    (doseq [row-num (range 2 number-of-rows)]
       (let [table (taxi/element TABLE-SELECTOR)
             row (nth (taxi/elements table "tr") row-num)
             columns (taxi/elements row "td")
-            visit-date (-> columns first :webelement .getText)
+            visit-date (-> (nth columns 1) :webelement .getText)
             formatted-visit-date (download/convert-date visit-date)
-            provider (-> (nth columns 2) :webelement .getText)
-            formatted-provider (string/replace provider " " "_")
-            total-charges (-> (nth columns 4) :webelement .getText)
+            provider (title-or-text (nth columns 5))
+            formatted-provider (string/replace provider #" +" "_")
+            total-charges (-> (nth columns 7) :webelement .getText)
             formatted-total-charges (string/replace (string/replace total-charges "$" "") "." "_")
-            final-filename (str formatted-visit-date "_" formatted-provider "_" formatted-total-charges ".pdf")
-            link (taxi/element (last columns) "a")]
-        (if (and (:webelement link)
-                 (download/download statement-path link "eob1.pdf" final-filename "Blue Cross"))
-          (taxi/back))))))
+            final-filename (str formatted-visit-date "_" formatted-provider "_" formatted-total-charges ".pdf")]
+        (taxi/click (nth columns 2))
+        (let [eob-link (taxi/element "span.eob")]
+          (if (:webelement eob-link)
+            (download/download statement-path eob-link "eob1.pdf" final-filename "Blue Cross")))
+        (taxi/back)))))
