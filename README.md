@@ -5,6 +5,7 @@ Statement Hoarder automates downloading PDF statements from websites. It saves y
 ## Supported Sites
 
 * American Express
+* AT&T
 * Blue Cross Blue Shield of Illinois
 * ComED
 * RCN
