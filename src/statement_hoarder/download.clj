@@ -44,3 +44,22 @@
         (taxi/wait-until #(exists? download-path) 60000 500)
         (mv download-path final-path)
         true))))
+
+(defn download-link [statement-path folder original-filename final-filename link]
+  (download-with-function statement-path folder original-filename final-filename #(taxi/click link)))
+
+(defn download-with-function [statement-path folder original-filename final-filename link-function]
+  (let [download-path (str TMP-PATH original-filename)
+        final-path (str statement-path "/" folder "/" final-filename)]
+    (.mkdir (io/file statement-path))
+    (.mkdir (io/file (str statement-path "/" folder)))
+    (if (exists? final-path)
+      (do
+        (println "  skipping" final-filename "since it already exists")
+        false)
+      (do
+        (println "  downloading" final-filename)
+        (link-function)
+        (taxi/wait-until #(exists? download-path) 60000 500)
+        (mv download-path final-path)
+        true))))
