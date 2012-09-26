@@ -15,6 +15,13 @@
       title
       text)))
 
+(defn download-eob [link]
+  (taxi/click link)
+  (let [eob-link (taxi/element "span.eob")]
+    (when (:webelement eob-link)
+      (taxi/click eob-link))
+    (taxi/back)))
+
 (defn download [statement-path username password]
   (taxi/get-url "https://members.hcsc.net/wps/portal/bam")
 
@@ -35,14 +42,12 @@
             row (nth (taxi/elements table "tr") row-num)
             columns (taxi/elements row "td")
             visit-date (-> (nth columns 1) :webelement .getText)
+            claim-type (-> (nth columns 3) :webelement .getText)
             formatted-visit-date (download/convert-date visit-date)
             provider (title-or-text (nth columns 5))
             formatted-provider (string/replace provider #" +" "_")
             total-charges (-> (nth columns 7) :webelement .getText)
             formatted-total-charges (string/replace (string/replace total-charges "$" "") "." "_")
             final-filename (str formatted-visit-date "_" formatted-provider "_" formatted-total-charges ".pdf")]
-        (taxi/click (nth columns 2))
-        (let [eob-link (taxi/element "span.eob")]
-          (if (:webelement eob-link)
-            (download/download statement-path eob-link "eob1.pdf" final-filename "Blue Cross")))
-        (taxi/back)))))
+        (when-not (= claim-type "Prescription Drug")
+          (download/download-with-function statement-path "Blue Cross" "eob1.pdf" final-filename (partial download-eob (nth columns 2))))))))

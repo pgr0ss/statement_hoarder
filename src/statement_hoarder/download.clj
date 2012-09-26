@@ -29,7 +29,7 @@
         partial-downloads (filter (partial re-find #".part$") all-download-names)]
     (zero? (count partial-downloads))))
 
-(defn download [statement-path link original-filename final-filename folder]
+(defn download-with-function [statement-path folder original-filename final-filename link-function]
   (let [download-path (str TMP-PATH original-filename)
         final-path (str statement-path "/" folder "/" final-filename)]
     (.mkdir (io/file statement-path))
@@ -40,7 +40,10 @@
         false)
       (do
         (println "  downloading" final-filename)
-        (taxi/click link)
+        (link-function)
         (taxi/wait-until #(exists? download-path) 60000 500)
         (mv download-path final-path)
         true))))
+
+(defn download-link [statement-path folder original-filename final-filename link]
+  (download-with-function statement-path folder original-filename final-filename #(taxi/click link)))

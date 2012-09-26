@@ -24,4 +24,4 @@
             bill-date (-> columns first :webelement .getText)
             final-filename (str (download/convert-date bill-date) ".pdf")
             link (taxi/element (last columns) "a")]
-        (download/download statement-path link "default.aspx" final-filename "ComEd")))))
+        (download/download-link statement-path "default.aspx" final-filename "ComEd" link)))))

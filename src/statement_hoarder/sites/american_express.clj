@@ -22,4 +22,4 @@
     (let [date-string (-> download-link :webelement .getText)
           [month day year] (string/split date-string #" ")
           filename (str "Statement_" month " " year ".pdf")]
-      (download/download statement-path download-link filename filename "American Express"))))
+      (download/download-link statement-path filename filename "American Express" download-link ))))
