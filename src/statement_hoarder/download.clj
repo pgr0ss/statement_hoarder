@@ -40,10 +40,14 @@
         false)
       (do
         (println "  downloading" final-filename)
-        (link-function)
-        (taxi/wait-until #(exists? download-path) 60000 500)
-        (mv download-path final-path)
-        true))))
+        (try
+          (link-function)
+          (taxi/wait-until #(exists? download-path) 10000 500)
+          (mv download-path final-path)
+          true
+          (catch Exception e
+            (println "Failed to download: " (.getMessage e))
+            false))))))
 
 (defn download-link [statement-path folder original-filename final-filename link]
   (download-with-function statement-path folder original-filename final-filename #(taxi/click link)))
