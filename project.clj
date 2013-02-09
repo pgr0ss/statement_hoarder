@@ -2,5 +2,5 @@
   :description "Statement Hoarder"
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [clj-yaml "0.3.1"]
-                 [clj-webdriver "0.6.0-alpha11"]]
+                 [clj-webdriver "0.6.0-beta2"]]
   :main statement-hoarder.core)

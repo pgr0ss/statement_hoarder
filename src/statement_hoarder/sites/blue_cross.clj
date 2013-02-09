@@ -43,6 +43,8 @@
             columns (taxi/elements row "td")
             visit-date (-> (nth columns 1) :webelement .getText)
             claim-type (-> (nth columns 3) :webelement .getText)
+            member (-> (nth columns 4) :webelement .getText)
+            formatted-member (string/replace member #"\s+" " ")
             formatted-visit-date (download/convert-date visit-date)
             provider (title-or-text (nth columns 5))
             formatted-provider (string/replace provider #" +" "_")
@@ -50,4 +52,8 @@
             formatted-total-charges (string/replace (string/replace total-charges "$" "") "." "_")
             final-filename (str formatted-visit-date "_" formatted-provider "_" formatted-total-charges ".pdf")]
         (when-not (= claim-type "Prescription Drug")
-          (download/download-with-function statement-path "Blue Cross" "eob1.pdf" final-filename (partial download-eob (nth columns 2))))))))
+          (download/download-with-function statement-path
+                                           (str "Blue Cross/" formatted-member)
+                                           "eob1.pdf"
+                                           final-filename
+                                           (partial download-eob (nth columns 2))))))))
