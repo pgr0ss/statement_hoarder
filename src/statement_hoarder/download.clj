@@ -42,7 +42,7 @@
         (println "  downloading" final-filename)
         (try
           (link-function)
-          (taxi/wait-until #(exists? download-path) 10000 500)
+          (taxi/wait-until #(exists? download-path) 60000 500)
           (mv download-path final-path)
           true
           (catch Exception e
