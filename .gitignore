@@ -1,6 +1,7 @@
 *jar
 /.lein-deps-sum
 /.lein-failures
+/.lein-repl-history
 /checkouts
 /classes
 /config.yml
@@ -8,3 +9,4 @@
 /native
 /pom.xml
 /statements
+/target
