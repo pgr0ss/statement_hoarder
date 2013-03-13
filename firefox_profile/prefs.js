@@ -6,41 +6,50 @@
  * the changes will be overwritten when the application exits.
  *
  * To make a manual change to preferences, you can visit the URL about:config
- * For more information, see http://www.mozilla.org/unix/customizing.html#prefs
  */
 
 user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1334427047);
 user_pref("app.update.lastUpdateTime.background-update-timer", 1334427047);
 user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1334427047);
+user_pref("app.update.lastUpdateTime.browser-cleanup-thumbnails", 1363152815);
 user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1334427047);
 user_pref("browser.bookmarks.restore_default_bookmarks", false);
-user_pref("browser.cache.disk.capacity", 1048576);
+user_pref("browser.cache.disk.capacity", 358400);
 user_pref("browser.cache.disk.smart_size.first_run", false);
-user_pref("browser.cache.disk.smart_size_cached_value", 1048576);
+user_pref("browser.cache.disk.smart_size.use_old_max", false);
+user_pref("browser.cache.disk.smart_size_cached_value", 358400);
 user_pref("browser.download.dir", "/private/tmp/download");
 user_pref("browser.download.folderList", 2);
-user_pref("browser.migration.version", 6);
-user_pref("browser.places.smartBookmarksVersion", 2);
+user_pref("browser.migration.version", 8);
+user_pref("browser.pagethumbnails.storage_version", 2);
+user_pref("browser.places.smartBookmarksVersion", 4);
 user_pref("browser.rights.3.shown", true);
-user_pref("browser.startup.homepage_override.buildID", "20120420145725");
-user_pref("browser.startup.homepage_override.mstone", "rv:12.0");
+user_pref("browser.startup.homepage_override.buildID", "20130307023931");
+user_pref("browser.startup.homepage_override.mstone", "19.0.2");
 user_pref("extensions.blocklist.pingCountVersion", -1);
 user_pref("extensions.bootstrappedAddons", "{}");
-user_pref("extensions.databaseSchema", 12);
-user_pref("extensions.enabledAddons", "{972ce4c6-7e08-4474-a285-3208198ce6fd}:12.0");
-user_pref("extensions.installCache", "[{\"name\":\"app-global\",\"addons\":{\"{972ce4c6-7e08-4474-a285-3208198ce6fd}\":{\"descriptor\":\"/Applications/Firefox.app/Contents/MacOS/extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}\",\"mtime\":1335322876000}}}]");
-user_pref("extensions.lastAppVersion", "12.0");
-user_pref("extensions.lastPlatformVersion", "12.0");
+user_pref("extensions.databaseSchema", 14);
+user_pref("extensions.enabledAddons", "%7B972ce4c6-7e08-4474-a285-3208198ce6fd%7D:19.0.2");
+user_pref("extensions.installCache", "[{\"name\":\"app-global\",\"addons\":{\"{972ce4c6-7e08-4474-a285-3208198ce6fd}\":{\"descriptor\":\"/Applications/Firefox.app/Contents/MacOS/extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}\",\"mtime\":1362658020000}}}]");
+user_pref("extensions.lastAppVersion", "19.0.2");
+user_pref("extensions.lastPlatformVersion", "19.0.2");
 user_pref("extensions.pendingOperations", false);
 user_pref("extensions.shownSelectionUI", true);
+user_pref("gecko.buildID", "20130307023931");
+user_pref("gecko.mstone", "19.0.2");
 user_pref("intl.charsetmenu.browser.cache", "UTF-8");
 user_pref("network.cookie.prefsMigrated", true);
+user_pref("pdfjs.migrationVersion", 1);
 user_pref("places.history.expiration.transient_current_max_pages", 104858);
+user_pref("plugin.disable_full_page_plugin_for_types", "application/pdf");
+user_pref("pref.downloads.disable_button.edit_actions", false);
 user_pref("privacy.cpd.offlineApps", true);
 user_pref("privacy.cpd.siteSettings", true);
 user_pref("privacy.sanitize.migrateFx3Prefs", true);
 user_pref("privacy.sanitize.timeSpan", 0);
+user_pref("toolkit.startup.last_success", 1363153635);
 user_pref("toolkit.telemetry.prompted", 2);
-user_pref("urlclassifier.keyupdatetime.https://sb-ssl.google.com/safebrowsing/newkey", 1340417279);
+user_pref("urlclassifier.keyupdatetime.https://sb-ssl.google.com/safebrowsing/newkey", 1365744817);
 user_pref("xpinstall.whitelist.add", "");
+user_pref("xpinstall.whitelist.add.180", "");
 user_pref("xpinstall.whitelist.add.36", "");
