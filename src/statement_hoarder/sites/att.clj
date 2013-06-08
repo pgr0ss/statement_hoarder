@@ -27,7 +27,7 @@
   (taxi/get-url "http://www.att.com")
 
   (taxi/input-text "#userid" username)
-  (taxi/input-text "#password" password)
+  (taxi/input-text "#userPassword" password)
 
   (taxi/click (taxi/element "#tguardLoginButton"))
   (Thread/sleep 10000)

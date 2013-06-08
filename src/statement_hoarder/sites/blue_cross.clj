@@ -5,7 +5,7 @@
            [statement-hoarder.download :as download]
            [statement-hoarder.finders :as finders]))
 
-(def TABLE-SELECTOR "table#claim")
+(def TABLE-SELECTOR "table.data-table-hoverable")
 
 (defn- title-or-text [column]
   (let [webelement (:webelement column)
